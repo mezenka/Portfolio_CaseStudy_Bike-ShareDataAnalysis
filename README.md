@@ -21,7 +21,7 @@ Case study goal - producing a report with the following deliverables:
   
 ====================================================================================
 ## Data analysis process Step 1. Ask
-====================================================================================
+====================================================================================  
 Statement of the **Business Task**
 Analyze Cyclistic historic bike trip data in order to answer the following business questions:
 1. How do annual members and casual riders use Cyclistic bikes differently?
