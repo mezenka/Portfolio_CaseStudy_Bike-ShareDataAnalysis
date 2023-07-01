@@ -68,7 +68,8 @@ Due to the large size of the data set (over 5,829,030 rows by 13 columns), sprea
 For data cleaning purposes RStudio was chosen, specifically for its capability to bulk load numerous source files. The required R packages for these tasks are ‘tidyverse’ and ‘data.table’. Along the data cleaning process every new step was saved to a new data frame in order to easier trace back to the previous step.
 Below please find the RMarkdown notebook documenting the entire cleaning process.
 
-=RMarkdown-start===============================================================
+=RMarkdown-start===============================================================  
+
 ---
 title: "Cyclistic_cleaning"
 author: "Denis Mezenko"
