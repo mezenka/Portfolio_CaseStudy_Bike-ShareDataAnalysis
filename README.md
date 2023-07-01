@@ -186,7 +186,8 @@ View(cyclistic236) # Looking at the data set
  
  
 The resulting cleaned dataset consisted of 4,294,321 rows by 18 columns and was exported to a .csv file.
-
+  
+  
   
 ====================================================================================  
 ## Data analysis process Step 4. Analyze
