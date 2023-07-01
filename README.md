@@ -495,6 +495,7 @@ The following steps are advised:
 Additional data about more specific interests of riders using the Cyclistic bike-share service would shed even more light on how marketing can better target casual riders and convince them to convert to full membership. Therefore a customer survey targeted at this task is also strongly advised.
 
 
-
-  
-  
+==========================================================================
+[GitHub] (https://github.com/mezenka/Portfolio_CaseStudy_Bike-ShareDataAnalysis)  
+[Tableau] (https://public.tableau.com/app/profile/denis5215/viz/iCyclistic2/dash)  
+[Google] (https://docs.google.com/document/d/1DIv2U2Y4oCVRwvi5n-bSiZg1DfFyhj2J0OR67ET6GZo/edit?usp=sharing)
