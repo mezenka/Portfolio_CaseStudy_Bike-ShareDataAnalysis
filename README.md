@@ -20,9 +20,10 @@ Case study goal - producing a report with the following deliverables:
   
 
     
-====================================================================================
+==========================================================================
 ## Data analysis process Step 1. Ask
-====================================================================================  
+==========================================================================  
+
 Statement of the **Business Task**
 Analyze Cyclistic historic bike trip data in order to answer the following business questions:
 1. How do annual members and casual riders use Cyclistic bikes differently?
@@ -39,9 +40,10 @@ Key stakeholders:
   
 
   
-====================================================================================
+==========================================================================
 ## Data analysis process Step 2. Prepare
-====================================================================================
+==========================================================================  
+
 For the purposes of this case study the historical trip data was used in the form of zipped .csv files for the latest 12 consecutive months (June 2022 - May 2023). The data was made publicly available under [Data License Agreement] (https://www.divvybikes.com/data-license-agreement) and  was downloaded from [here] (https://divvy-tripdata.s3.amazonaws.com/index.html).  
 Because of privacy restrictions the data does not contain any personal information about the riders. The data includes anonymous ride IDs, bike types used, dates and times every ride was started and finished, names, IDs, and coordinates of bike stations, and the type of the rider using the bike.  
 The source data is organized into separate .csv files, one for every month.  
@@ -63,16 +65,16 @@ All cleaning and transformation procedures performed with the source data are do
    
 
     
-====================================================================================
+==========================================================================
 ## Data analysis process Step 3. Process
-====================================================================================  
+==========================================================================  
 
 ### Cleaning the data and preparing it for analysis. RStudio
 Due to the large size of the data set (over 5,829,030 rows by 13 columns), spreadsheet applications would not be suitable for cleaning and manipulating the raw data.
 For data cleaning purposes RStudio was chosen, specifically for its capability to bulk load numerous source files. The required R packages for these tasks are ‘tidyverse’ and ‘data.table’. Along the data cleaning process every new step was saved to a new data frame in order to easier trace back to the previous step.
 Below please find the RMarkdown notebook documenting the entire cleaning process.
 
-=RMarkdown-start===============================================================  
+=RMarkdown-start=====================================================  
 
 title: "Cyclistic_cleaning"  
 author: "Denis Mezenko"  
@@ -189,9 +191,9 @@ The resulting cleaned dataset consisted of 4,294,321 rows by 18 columns and was 
   
   
   
-====================================================================================  
+==========================================================================  
 ## Data analysis process Step 4. Analyze
-====================================================================================  
+==========================================================================  
 
 The .csv file from the previous stage was imported for further analysis into MS SQL Server Management Studio using Import and Export Tool. SQL was used for data analysis and Tableau for data visualization.  
 The analyzed data covers information about 4,294,321 unique rides made in the 12-month period between 01.06.2022 and 31.05.2023. In terms of the number of rides 2,666,209 or 62% were made by members and 1,628,112 or 38% were made by casual riders. In terms of time spent riding the situation is the opposite with member riders spending 48% of the time, and casual riders spending 52%.  
@@ -210,7 +212,7 @@ These differences suggest that the two groups of riders must be using the bike-s
 Please see the visualisations of the discussed differences in bike use patters between the two types of riders [here] (https://public.tableau.com/app/profile/denis5215/viz/iCyclistic2/dash).  
 Below please find the script of all SQL queries used in the analysis. 
 
-=SQLstart===========================================================================
+=SQLstart=================================================================
 ```
 -- Creating table in MS SQL Server
 The following table was created to house the imported comma-separated data in relevant formats:
@@ -451,13 +453,13 @@ LEFT JOIN cyclistic.dbo.[stations_coordinates] c
 ON s.start_station_name = c.start_station_name
 ```
 
-=SQLend===========================================================================  
+=SQLend=================================================================  
 The final table was saved as .csv file to be used for building data visualizations using Tableau Public.  
 
 
-====================================================================================
+==========================================================================
 ## Data analysis process Step 5. Share
-====================================================================================  
+==========================================================================  
 
 The analysis results may be shared with the key stakeholders in a presentation using visualizations built with Tableau Public and stored at their website. 
 [Descriptive data visualizations] (https://public.tableau.com/app/profile/denis5215/viz/iCyclistic1/descriptive)
@@ -471,9 +473,9 @@ Casual riders seem to be mostly cycling for leisure as evidenced by higher densi
 The understanding that the two categories of riders are using the bike-sharing service for two distinctly different purposes, commuting and leisure, empowers our team at Cyclistic to find out how to make switching from casual riding passes to annual memberships appealing for the casual riders, and come up with a viable marketing strategy which would make this conversion happen.  
 
 
-====================================================================================
+==========================================================================
 ## Data analysis process Step 6. Act
-====================================================================================  
+==========================================================================  
 
 ### Conclusion and recommendations  
 The data analysis revealed that member riders are using the bike-sharing service mostly for commuting, and casual riders - mostly for leisure. Since it has been determined by the finance team that the annual memberships are more profitable for Cyclistic than casual ride passes, the goal is to see how the value of annual memberships can be improved for casual leisure riders, so that they seriously consider converting to full membership.  
