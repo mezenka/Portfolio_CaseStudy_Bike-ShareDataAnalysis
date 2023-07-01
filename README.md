@@ -65,20 +65,21 @@ All cleaning and transformation procedures performed with the source data are do
     
 ====================================================================================
 ## Data analysis process Step 3. Process
-====================================================================================
-Cleaning the data and preparing it for analysis. RStudio
+====================================================================================  
+
+### Cleaning the data and preparing it for analysis. RStudio
 Due to the large size of the data set (over 5,829,030 rows by 13 columns), spreadsheet applications would not be suitable for cleaning and manipulating the raw data.
 For data cleaning purposes RStudio was chosen, specifically for its capability to bulk load numerous source files. The required R packages for these tasks are ‘tidyverse’ and ‘data.table’. Along the data cleaning process every new step was saved to a new data frame in order to easier trace back to the previous step.
 Below please find the RMarkdown notebook documenting the entire cleaning process.
 
 =RMarkdown-start===============================================================  
-  
----
-title: "Cyclistic_cleaning"
-author: "Denis Mezenko"
-date: "2023-06-30"
-output: html_document
----
+' - - - ' 
+title: "Cyclistic_cleaning"  
+author: "Denis Mezenko"  
+date: "2023-06-30"  
+output: html_document  
+' - - - '
+
   
 ### Setting up environment (RStudio)
 ```{r}
