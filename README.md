@@ -73,12 +73,11 @@ For data cleaning purposes RStudio was chosen, specifically for its capability t
 Below please find the RMarkdown notebook documenting the entire cleaning process.
 
 =RMarkdown-start===============================================================  
-' - - - ' 
+
 title: "Cyclistic_cleaning"  
 author: "Denis Mezenko"  
 date: "2023-06-30"  
 output: html_document  
-' - - - '
 
   
 ### Setting up environment (RStudio)
@@ -117,7 +116,7 @@ sum(is.na(cyclistic23))
 colSums(is.na(cyclistic23))
 ```
 
-# ===== Data cleaning ===== #
+### Data cleaning
 
 ```{r}
 # Removing entries with missing values
@@ -178,7 +177,7 @@ count(cyclistic236) # Checking number of entries
 View(cyclistic236) # Looking at the data set
 ```
 
-### Exporting data to CSV file in order to import to MS SQL Server
+### Exporting data to .csv file in order to import to MS SQL Server
 ```{r}
   write.csv(cyclistic236, 'C:/edu/Google Data Analytics/Case_study1/s2023l12/s2023l12.csv', row.names = FALSE, quote = FALSE)
 ```
