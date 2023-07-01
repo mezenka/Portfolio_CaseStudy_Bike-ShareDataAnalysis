@@ -1,4 +1,4 @@
-# Case study: Data analysis for Cyclistic bike-sharing companu  
+# Case study: Data analysis for Cyclistic bike-sharing company  
 
 Google Data Analytics Professional Certificate  
 Capstone Project  
@@ -18,7 +18,8 @@ Case study goal - producing a report with the following deliverables:
 5. Supporting visualizations
 6. Recommendations based on the analysis
   
-  
+
+    
 ====================================================================================
 ## Data analysis process Step 1. Ask
 ====================================================================================  
@@ -37,6 +38,7 @@ Key stakeholders:
 ***Cyclistic’s executives*** - notoriously detail-oriented executive team will decide whether to approve the recommended marketing program  
   
 
+  
 ====================================================================================
 ## Data analysis process Step 2. Prepare
 ====================================================================================
@@ -59,7 +61,8 @@ The initial browsing of the source files identified several issues with the data
    
 All cleaning and transformation procedures performed with the source data are documented below and may be reproduced, reviewed and shared with peers and stakeholders if necessary.  
    
-  
+
+    
 ====================================================================================
 ## Data analysis process Step 3. Process
 ====================================================================================
@@ -69,13 +72,14 @@ For data cleaning purposes RStudio was chosen, specifically for its capability t
 Below please find the RMarkdown notebook documenting the entire cleaning process.
 
 =RMarkdown-start===============================================================  
-
+  
 ---
 title: "Cyclistic_cleaning"
 author: "Denis Mezenko"
 date: "2023-06-30"
 output: html_document
 ---
+  
 ### Setting up environment (RStudio)
 ```{r}
 install.packages("tidyverse")
@@ -177,8 +181,316 @@ View(cyclistic236) # Looking at the data set
 ```{r}
   write.csv(cyclistic236, 'C:/edu/Google Data Analytics/Case_study1/s2023l12/s2023l12.csv', row.names = FALSE, quote = FALSE)
 ```
- =RMarkdown-end=================================================================
+
+ =RMarkdown-end=================================================================  
+ 
+ 
 The resulting cleaned dataset consisted of 4,294,321 rows by 18 columns and was exported to a .csv file.
+
+  
+====================================================================================  
+## Data analysis process Step 4. Analyze
+====================================================================================  
+
+The .csv file from the previous stage was imported for further analysis into MS SQL Server Management Studio using Import and Export Tool. SQL was used for data analysis and Tableau for data visualization.  
+The analyzed data covers information about 4,294,321 unique rides made in the 12-month period between 01.06.2022 and 31.05.2023. In terms of the number of rides 2,666,209 or 62% were made by members and 1,628,112 or 38% were made by casual riders. In terms of time spent riding the situation is the opposite with member riders spending 48% of the time, and casual riders spending 52%.  
+Members' rides appear to be distributed more evenly across the year. Their monthly number of rides varies from 101K to 324k. The high season falls for April-October showing 200-300K rides per month (8-12% of the total annual number of rides falling on every month in this band). For the rest of the year the members’ rides remain within 100-170K range (4-7%).  
+Casual riders usage peaks during June-September period at 208-288K rides per month (13-18%), reduces to hundreds thousand in April, May, and October, and dramatically plummets to as low as tens of thousands in the colder months of the year (2-10%).  
+The time spent riding shows quite different trends compared to the number of rides. If for member riders the riding time closely follows the number of rides (average ride duration remains fairly constant throughout the year, 10-14 minutes), the casual riders showing much longer ride duration times - from 14 minutes in December and January to 24 minutes in June and July.  
+The two groups of riders also show different patterns of using bicycles of different types. Members prefer classical bikes (67%) over electric ones (33%). Casual riders also seem to prefer classical bikes using them for half of their rides, but along with the electric bikes (33%) they have also been using docked bikes (17%).  
+Members and casual riders also appear to have different patterns of bike use in terms of days of the week as well as time of the day.  
+Casual riders appear to have been using the bike-sharing service more during day time (46%) throughout all days of the week. The second most active band for them is evenings (30), and only then the mornings (20%). This trend remains through all days of the week. Weekends see the highest numbers of bike trips by casual users (36% of rides on Saturdays and Sundays vs 64% during all five weekdays) with peak on Saturdays (20% of all rides during the entire week). Casuals’ night rides are also notably more frequent on weekends.  
+Member riders, on the contrary, make the majority of their rides between Monday and Friday (77% of all rides) with trips almost evenly distributed between mornings, daytime and evenings (28%, 43%, and 26% respectively) with daytime still leading. Members continue riding on weekends, but with much less trips (12% Saturdays and 11% Sundays). There is also a slight increase in night rides on weekends for members too.  
+There is a significant difference between member and casual riders in terms of stations they have been using. Below please see top 5 stations most used by members and casual riders plotted on the map of Chicago - the stations most used by members and those most used by casual riders are in fact grouped in quite different areas geographically, distinctly apart from each other - please see [here] (https://public.tableau.com/app/profile/denis5215/viz/iCyclistic1/descriptive).  
+Stations most used by casual riders are located in somewhat more recreational areas of Chicago mostly adjacent to the sea front, while those most used by member riders are much further west towards the parts of the city which appear to be more business and residential. In addition to that, all other stations used by member riders appear to be broadly dispersed across the entire city, while the stations used by the casual riders are mostly near the sea front.  
+The data shows that the two groups of riders have differing patterns of use of the service run by Cyclistic. The main differences are in how the rides are distributed both geographically and in time - between months, days of the week, and times of the day.  
+These differences suggest that the two groups of riders must be using the bike-share service for different purposes.  
+
+Please see the visualisations of the discussed differences in bike use patters between the two types of riders [here] (https://public.tableau.com/app/profile/denis5215/viz/iCyclistic2/dash).  
+Below please find the script of all SQL queries used in the analysis. 
+
+=SQLstart===========================================================================
+```
+-- Creating table in MS SQL Server
+The following table was created to house the imported comma-separated data in relevant formats:
+
+DROP TABLE IF EXISTS cyclistic.dbo.[raw]
+SELECT * FROM cyclistic.dbo.[raw]
+
+CREATE TABLE cyclistic.dbo.[raw] (
+    ride_id VARCHAR(250) PRIMARY KEY,
+    rideable_type VARCHAR(250) NULL,
+    started_at DATETIME NULL,
+    ended_at DATETIME NULL,
+    start_station_name VARCHAR(250) NULL,
+    start_station_id VARCHAR(250) NULL,
+    end_station_name VARCHAR(250) NULL,
+    end_station_id VARCHAR(50) NULL,
+    start_lat FLOAT NULL,
+    start_lng FLOAT NULL,
+    end_lat FLOAT NULL,
+    end_lng FLOAT NULL,
+    member_casual VARCHAR(250) NULL,
+    ride_time_min FLOAT,
+    ride_month INT,
+    ride_weekday VARCHAR(250),
+    ride_hour INT,
+    ride_daytime VARCHAR(250)
+    )
+
+-- Importing csv data
+INSERT INTO cyclistic.dbo.[raw] (
+    ride_id,
+    rideable_type,
+    started_at,
+    ended_at,
+    start_station_name,
+    start_station_id,
+    end_station_name,
+    end_station_id,
+    start_lat,
+    start_lng,
+    end_lat,
+    end_lng,
+    member_casual,
+    ride_time_min,
+    ride_month,
+    ride_weekday,
+    ride_hour,
+    ride_daytime
+    )
+    SELECT
+   	 ride_id,
+   	 rideable_type,
+   	 started_at,
+   	 ended_at,
+   	 start_station_name,
+   	 start_station_id,
+   	 end_station_name,
+   	 end_station_id,
+   	 start_lat,
+   	 start_lng,
+   	 end_lat,
+   	 end_lng,
+   	 member_casual,
+   	 ride_time_min,
+   	 ride_month,
+   	 ride_weekday,
+   	 ride_hour,
+   	 ride_daytime
+   	 FROM cyclistic.dbo.[s2023l12]
+
+-- Data exploration
+--- Calculating total number of rides and ride time by member type
+SELECT
+    member_casual,
+    COUNT(ride_id) AS rides_no,
+    SUM(ride_time_min) AS rides_time
+FROM cyclistic.dbo.[raw]
+GROUP BY member_casual
+ORDER BY SUM(ride_time_min)
+
+--- Calculating total number of rides and ride time by rider type and bike type
+SELECT
+    member_casual,
+    rideable_type,
+    COUNT(ride_id) AS rides_no,
+    SUM(ride_time_min) AS rides_time
+FROM cyclistic.dbo.[raw]
+GROUP BY member_casual, rideable_type
+ORDER BY member_casual DESC, rideable_type--, SUM(ride_time_min)
+
+--- Determining most frequently used start stations by each rider type
+SELECT
+    member_casual,
+    start_station_name,
+    --start_lat,
+    --start_lng,
+    COUNT(ride_id) AS start_trip_no
+FROM cyclistic.dbo.[raw]
+GROUP BY member_casual, start_station_name
+HAVING COUNT(ride_id) > 10000
+ORDER BY member_casual, COUNT(ride_id) DESC
+
+--- Determining most frequently used end stations by each rider type
+SELECT
+    member_casual,
+    end_station_name,
+    --start_lat,
+    --start_lng,
+    COUNT(ride_id) AS end_trip_no
+FROM cyclistic.dbo.[raw]
+GROUP BY member_casual, end_station_name
+HAVING COUNT(ride_id) > 10000
+ORDER BY member_casual, COUNT(ride_id) DESC
+
+--- Plotting on map 5 most used stations by rider type
+---- Creating tables for top 5 used stations for casual riders
+SELECT TOP 5
+    member_casual,
+    start_station_name,
+    --start_lat,
+    --start_lng,
+    COUNT(ride_id) AS start_trip_no
+INTO cyclistic.dbo.[stations_c_top5]
+FROM cyclistic.dbo.[raw]
+GROUP BY member_casual, start_station_name
+HAVING member_casual = 'casual' AND COUNT(ride_id) > 10000
+ORDER BY member_casual, COUNT(ride_id) DESC
+
+SELECT TOP 5
+    member_casual,
+    start_station_name,
+    --start_lat,
+    --start_lng,
+    COUNT(ride_id) AS start_trip_no
+INTO cyclistic.dbo.[stations_m_top5]
+FROM cyclistic.dbo.[raw]
+GROUP BY member_casual, start_station_name
+HAVING member_casual = 'member' AND COUNT(ride_id) > 10000
+ORDER BY member_casual, COUNT(ride_id) DESC
+
+--- Uniting tables
+SELECT *
+INTO cyclistic.dbo.[stations_cm_top5]
+FROM cyclistic.dbo.[stations_c_top5]
+UNION
+SELECT * FROM cyclistic.dbo.[stations_m_top5]
+
+SELECT
+    member_casual,
+    start_station_name,
+    start_trip_no
+FROM cyclistic.dbo.[stations_cm_top5]
+ORDER BY member_casual DESC, start_trip_no DESC
+
+SELECT * FROM cyclistic.dbo.[stations_cm_top5]
+
+--- Creating table for station coordinates
+SELECT
+    start_station_name,
+    AVG(start_lat) AS lat,
+    AVG(start_lng) AS lng--,
+    --s.member_casual,
+    --s.start_trip_no    
+INTO cyclistic.dbo.[stations_coordinates]
+FROM cyclistic.dbo.[raw]
+GROUP BY start_station_name
+
+--- Stations coordinates for map plotting of stations most used by casual riders
+SELECT
+    s.*,
+    r.lat,
+    r.lng
+FROM cyclistic.dbo.[stations_cm_top5] s
+LEFT JOIN cyclistic.dbo.[stations_coordinates] r
+ON s.start_station_name = r.start_station_name
+
+-- How each rider type used bikes by month
+SELECT
+    ride_month,
+    COUNT(CASE WHEN member_casual = 'member' THEN 1 END) rides_members,
+    COUNT(CASE WHEN member_casual = 'casual' THEN 1 END) rides_casuals
+FROM cyclistic.dbo.[raw]
+GROUP BY ride_month
+ORDER BY ride_month
+
+-- How each rider type used bikes by day of the week
+SELECT
+    ride_weekday,
+    CASE
+   	 WHEN ride_weekday = 'Monday' THEN 1
+   	 WHEN ride_weekday = 'Tuesday' THEN 2
+   	 WHEN ride_weekday = 'Wednesday' THEN 3
+   	 WHEN ride_weekday = 'Thursday' THEN 4
+   	 WHEN ride_weekday = 'Friday' THEN 5
+   	 WHEN ride_weekday = 'Saturday' THEN 6
+   	 WHEN ride_weekday = 'Sunday' THEN 7
+    END wdn,
+    COUNT(CASE WHEN member_casual = 'member' THEN 1 END) rides_members,
+    COUNT(CASE WHEN member_casual = 'casual' THEN 1 END) rides_casuals
+FROM cyclistic.dbo.[raw]
+GROUP BY ride_weekday
+ORDER BY 2
+
+-- How each rider type used bikes by day of the week and time of the day
+SELECT
+    ride_weekday,
+    CASE
+   	 WHEN ride_weekday = 'Monday' THEN 1
+   	 WHEN ride_weekday = 'Tuesday' THEN 2
+   	 WHEN ride_weekday = 'Wednesday' THEN 3
+   	 WHEN ride_weekday = 'Thursday' THEN 4
+   	 WHEN ride_weekday = 'Friday' THEN 5
+   	 WHEN ride_weekday = 'Saturday' THEN 6
+   	 WHEN ride_weekday = 'Sunday' THEN 7
+    END wdn,
+    ride_daytime,
+    COUNT(CASE WHEN member_casual = 'member' THEN 1 END) rides_members,
+    COUNT(CASE WHEN member_casual = 'casual' THEN 1 END) rides_casuals
+FROM cyclistic.dbo.[raw]
+GROUP BY ride_weekday, ride_daytime
+ORDER BY 2
+
+-- Selecting data for Tableau dashboard
+SELECT
+    s.ride_id,
+    s.rideable_type,
+    s.start_station_name,
+    c.lat,
+    c.lng,
+    s.member_casual,
+    s.ride_time_min,
+    s.ride_month,
+    s.ride_weekday,
+    s.ride_hour,
+    s.ride_daytime
+FROM cyclistic.dbo.[raw] s
+LEFT JOIN cyclistic.dbo.[stations_coordinates] c
+ON s.start_station_name = c.start_station_name
+```
+
+=SQLend===========================================================================  
+The final table was saved as .csv file to be used for building data visualizations using Tableau Public.  
+
+
+====================================================================================
+## Data analysis process Step 5. Share
+====================================================================================  
+
+The analysis results may be shared with the key stakeholders in a presentation using visualizations built with Tableau Public and stored at their website. 
+[Descriptive data visualizations] (https://public.tableau.com/app/profile/denis5215/viz/iCyclistic1/descriptive)
+[Interactive dashboard] (https://public.tableau.com/app/profile/denis5215/viz/iCyclistic2/dash )  
+The visualizations help answer the main question addressed by Cyclistic’s marketing to data analysts: How do annual members and casual riders use Cyclistic bikes differently?  
+  
+### Key findings  
+The results of the analysis answer the main question addressed to the analytics team - how do annual members and casual riders use Cyclistic bikes differently? The distinctly varying geography and patterns of using the bike-sharing service between the two groups of riders leads to assumption that casual and member riders tend to have different purposes for bikes.  
+Member riders appear to predominantly use bicycles for daily commute which stems from distribution of their rides across days of the week, higher number of morning rides on weekdays, and more even distribution of bike use throughout the year with individual month riding frequencies most likely varying due to weather.  
+Casual riders seem to be mostly cycling for leisure as evidenced by higher density of their rides falling on weekends and summer months, and the starting and ending stations being geographically concentrated around recreational areas.  
+The understanding that the two categories of riders are using the bike-sharing service for two distinctly different purposes, commuting and leisure, empowers our team at Cyclistic to find out how to make switching from casual riding passes to annual memberships appealing for the casual riders, and come up with a viable marketing strategy which would make this conversion happen.  
+
+
+====================================================================================
+## Data analysis process Step 6. Act
+====================================================================================  
+
+### Conclusion and recommendations  
+The data analysis revealed that member riders are using the bike-sharing service mostly for commuting, and casual riders - mostly for leisure. Since it has been determined by the finance team that the annual memberships are more profitable for Cyclistic than casual ride passes, the goal is to see how the value of annual memberships can be improved for casual leisure riders, so that they seriously consider converting to full membership.  
+
+  
+The following steps are advised:  
+1. Conducting thorough research into how much additional profit Cyclistic may be positioned to generate with conversion of certain percentiles of its casual riders audience into full members. Get clear understanding of how much resources are available to Cyclistic to organize and successfully implement the complex of marketing measures designed to make the casual-to-member conversion. Plan ahead if any financial leverage is likely to become required on the way.
+2. Introducing a brand new member riders package coming into force just before high season (April is the first month the casual rides start showing growth, so we could launch it in March) which would encourage casual riders to choose membership over the casual passes they are used to by having references to powerful values, and offering tangible perks and benefits. For example:
+- A powerful message saying how healthy it is to cycle more, and how it would be additionally so much cheaper for them, if they want to get healthier and cycle more) to switch from more expensive passes to memberships which would be much more financially reasonable over time;
+- Make visible statistical information on how the growing use of cycling for all purposes, not only leisure (i.e. commuting, running errands) creates a powerful positive impact on the environment, reducing city congestion, improving city air quality;
+- Offer discount on new membership passes (if signed up in April-June, the moths when casual bike trips see season rise);
+- Offer extra discount for families, couples, any other groups of several riders switching from passes to memberships;
+- Offer additional encouragements to switch to full membership from casual passes, like special events with free entrance for members and an entrance fee for everyone else, special discounts and perks from interested partner businesses (specialized accessories, clothes, refreshments, gyms and swimming pools (especially winter discounts for staying in shape and getting ready for the next biking season);
+- Bundling up Cyclistic membership with free or discounted tickets to movies, museums, especially those held when casual riders most use the bikes - summer months and weekends.
+3. Advertising the new package scheme in all available digital and social media and create attractive visuals physically present at the bike stations, starting from the ones most used by casual riders, as well as on all the bicycles, well in advance before the new member package coming into force, perhaps even starting as early as Christmas and the New Year holidays - playing around new year resolutions theme, health, longevity, positive impact for environment.
+  
+Additional data about more specific interests of riders using the Cyclistic bike-share service would shed even more light on how marketing can better target casual riders and convince them to convert to full membership. Therefore a customer survey targeted at this task is also strongly advised.
+
 
 
   
