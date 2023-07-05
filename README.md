@@ -513,6 +513,6 @@ Additional data about more specific interests of riders using the Cyclistic bike
 
 ==========================================================================  
 
-[GitHub] (https://github.com/mezenka/Portfolio_CaseStudy_Bike-ShareDataAnalysis)  
-[Tableau] (https://public.tableau.com/app/profile/denis5215/viz/iCyclistic2/dash)  
-[Google] (https://docs.google.com/document/d/1DIv2U2Y4oCVRwvi5n-bSiZg1DfFyhj2J0OR67ET6GZo/edit?usp=sharing)
+[GitHub](https://github.com/mezenka/Portfolio_CaseStudy_Bike-ShareDataAnalysis)  
+[Tableau](https://public.tableau.com/app/profile/denis5215/viz/iCyclistic2/dash)  
+[Google](https://docs.google.com/document/d/1DIv2U2Y4oCVRwvi5n-bSiZg1DfFyhj2J0OR67ET6GZo/edit?usp=sharing)
