@@ -197,6 +197,9 @@ The resulting cleaned dataset consisted of 4,294,321 rows by 18 columns and was 
 
 The .csv file from the previous stage was imported for further analysis into MS SQL Server Management Studio using Import and Export Tool. SQL was used for data analysis and Tableau for data visualization.  
 The analyzed data covers information about 4,294,321 unique rides made in the 12-month period between 01.06.2022 and 31.05.2023. In terms of the number of rides 2,666,209 or 62% were made by members and 1,628,112 or 38% were made by casual riders. In terms of time spent riding the situation is the opposite with member riders spending 48% of the time, and casual riders spending 52%.  
+Below is the visual representation of the time and number of rides by month by the type of riders:  
+![visualization of time and number of rides by month by type](https://github.com/mezenka/Portfolio_CaseStudy_Bike-ShareDataAnalysis/blob/main/cviz001.png?raw=true)
+
 Members' rides appear to be distributed more evenly across the year. Their monthly number of rides varies from 101K to 324k. The high season falls for April-October showing 200-300K rides per month (8-12% of the total annual number of rides falling on every month in this band). For the rest of the year the members’ rides remain within 100-170K range (4-7%).  
 Casual riders usage peaks during June-September period at 208-288K rides per month (13-18%), reduces to hundreds thousand in April, May, and October, and dramatically plummets to as low as tens of thousands in the colder months of the year (2-10%).  
 The time spent riding shows quite different trends compared to the number of rides. If for member riders the riding time closely follows the number of rides (average ride duration remains fairly constant throughout the year, 10-14 minutes), the casual riders showing much longer ride duration times - from 14 minutes in December and January to 24 minutes in June and July.  
