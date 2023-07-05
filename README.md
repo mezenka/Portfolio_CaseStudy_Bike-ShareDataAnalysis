@@ -3,7 +3,8 @@
 Google Data Analytics Professional Certificate  
 Capstone Project  
 Denis Mezenko  
-30.06.2023  
+30.06.2023    
+
 
 
 ### Scenario
