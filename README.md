@@ -44,7 +44,7 @@ Key stakeholders:
 ## Data analysis process Step 2. Prepare
 ==========================================================================  
 
-For the purposes of this case study the historical trip data was used in the form of zipped .csv files for the latest 12 consecutive months (June 2022 - May 2023). The data was made publicly available under [Data License Agreement] (https://www.divvybikes.com/data-license-agreement) and  was downloaded from [here] (https://divvy-tripdata.s3.amazonaws.com/index.html).  
+For the purposes of this case study the historical trip data was used in the form of zipped .csv files for the latest 12 consecutive months (June 2022 - May 2023). The data was made publicly available under [Data License Agreement](https://www.divvybikes.com/data-license-agreement) and  was downloaded from [here](https://divvy-tripdata.s3.amazonaws.com/index.html).  
 Because of privacy restrictions the data does not contain any personal information about the riders. The data includes anonymous ride IDs, bike types used, dates and times every ride was started and finished, names, IDs, and coordinates of bike stations, and the type of the rider using the bike.  
 The source data is organized into separate .csv files, one for every month.  
 As, according to the project scenario, the data has been received directly from the operating company, it can be assumed to be:  
