@@ -204,13 +204,16 @@ Below is the visual representation of the time and number of rides by month by t
   
 Members' rides appear to be distributed more evenly across the year. Their monthly number of rides varies from 101K to 324k. The high season falls for April-October showing 200-300K rides per month (8-12% of the total annual number of rides falling on every month in this band). For the rest of the year the members’ rides remain within 100-170K range (4-7%).  
 Casual riders usage peaks during June-September period at 208-288K rides per month (13-18%), reduces to hundreds thousand in April, May, and October, and dramatically plummets to as low as tens of thousands in the colder months of the year (2-10%).  
+  
 ![distribution of rides in a year by member type](https://github.com/mezenka/Portfolio_CaseStudy_Bike-ShareDataAnalysis/blob/main/cviz002.png?raw=true)
   
 The time spent riding shows quite different trends compared to the number of rides. If for member riders the riding time closely follows the number of rides (average ride duration remains fairly constant throughout the year, 10-14 minutes), the casual riders showing much longer ride duration times - from 14 minutes in December and January to 24 minutes in June and July.  
+  
 ![bike types used by member type](https://github.com/mezenka/Portfolio_CaseStudy_Bike-ShareDataAnalysis/blob/main/cviz003.png?raw=true)  
   
 The two groups of riders also show different patterns of using bicycles of different types. Members prefer classical bikes (67%) over electric ones (33%). Casual riders also seem to prefer classical bikes using them for half of their rides, but along with the electric bikes (33%) they have also been using docked bikes (17%).  
 Members and casual riders also appear to have different patterns of bike use in terms of days of the week as well as time of the day.  
+  
 ![rides by weekday](https://github.com/mezenka/Portfolio_CaseStudy_Bike-ShareDataAnalysis/blob/main/cviz004.png?raw=true)  
     
 Casual riders appear to have been using the bike-sharing service more during day time (46%) throughout all days of the week. The second most active band for them is evenings (30), and only then the mornings (20%). This trend remains through all days of the week. Weekends see the highest numbers of bike trips by casual users (36% of rides on Saturdays and Sundays vs 64% during all five weekdays) with peak on Saturdays (20% of all rides during the entire week). Casuals’ night rides are also notably more frequent on weekends.  
