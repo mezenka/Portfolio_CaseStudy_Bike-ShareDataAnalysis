@@ -32,7 +32,8 @@ Analyze Cyclistic historic bike trip data in order to answer the following busin
 
 The insights from the data analysis should help the company encourage their casual customers to buy annual membership plans.
 
-Key stakeholders:
+Key stakeholders:  
+
 ***Cyclistic’s customers*** - users of the bike-sharing programme who should benefit from the new marketing strategy that would make annual membership plans bring more value to them  
 ***Cyclistic’s marketing analysts*** - a team of data analysts responsible for collecting, analyzing, and reporting data that helps guide the marketing strategy  
 ***Cyclistic’s director of marketing*** - Ms Lily Moreno responsible for the development of campaigns and initiatives to promote the bike-share program  
